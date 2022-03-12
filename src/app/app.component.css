@@ -6,4 +6,5 @@
     align-self: auto;
     background-repeat: inherit;
     align-items: center;
+    border: 2px solid blue;
 }
