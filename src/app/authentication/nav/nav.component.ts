@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/_models/user.model';
 import { AuthenticationService } from '../authentication.service';
 
 @Component({
@@ -8,24 +10,28 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class NavComponent implements OnInit {
   model: any = {}
-  loggedIn!: boolean;
+  currentUser$!: Observable<User | null>;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(public authService: AuthenticationService) { }
 
   ngOnInit(): void {
-
+    console.log('currentUserr', this.authService.currentUser$)
   }
 
+
   login() {
-    this.authService.login(this.model).subscribe((res) => {
-         console.log(res)
-         this.loggedIn = true;
+    this.authService.login(this.model).subscribe((result) => {
+         //console.log(result)
       }
     )
   }
 
   logout(){
-    this.loggedIn = false;
+    this.authService.logout()
   }
+
+
+
+ 
 
 }
