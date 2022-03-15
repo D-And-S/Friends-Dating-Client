@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import { AuthenticationService } from './authentication/authentication.service';
+import { User } from './_models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +11,21 @@ import {HttpClient} from '@angular/common/http';
 export class AppComponent implements OnInit {
   title = 'Friends Dating';
   
-  constructor(private http: HttpClient){
-
-  }
+  constructor(private _http: HttpClient, 
+              private _authService:AuthenticationService
+             ){}
 
   ngOnInit(): void {
-    this.getUsers()
+    this.setCurrentUser()
   }
 
-  getUsers(){
-    this.http.get('https://localhost:44351/api/users').subscribe((next)=>{
-        console.log(next)
-    })
-  }
+  
+  setCurrentUser(){
+    const user: User =  JSON.parse(localStorage.getItem('user')!)
+    this._authService.setCurrentUser(user)
+    //console.log('setCurrentObject',user)
+ }
+
+
 
 }
