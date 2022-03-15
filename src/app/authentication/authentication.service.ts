@@ -3,9 +3,11 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { User } from '../_models/user.model';
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthenticationService {
   baseUrl = "https://localhost:44351/api/";
 

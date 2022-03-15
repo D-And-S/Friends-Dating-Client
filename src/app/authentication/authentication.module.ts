@@ -1,22 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavComponent } from './nav/nav.component';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
-    NavComponent
+    LoginComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    BsDropdownModule
   ],
   exports:[
-    NavComponent
+    LoginComponent
   ]
 })
 export class AuthenticationModule { }
