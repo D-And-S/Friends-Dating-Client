@@ -21,6 +21,7 @@ export class AuthenticationService {
     //rxjs pipe use for to define operator
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
       // like array map, take a function, in here recieve http response
+      // in map function we can get back specific data
       map((response:any) => {
         const user = response;
         // if user not null
@@ -35,6 +36,18 @@ export class AuthenticationService {
 
   setCurrentUser(user:User){
     this.curentUserSource.next(user);
+  }
+
+  register(model:any){
+    return this.http.post(this.baseUrl+'account/register',model).pipe(
+      map((user:any)=>{
+        if(user){
+          localStorage.setItem('user', JSON.stringify(user))
+          this.curentUserSource.next(user)
+        }
+        //return user;
+      })
+    );
   }
 
   logout(){
