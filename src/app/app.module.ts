@@ -1,4 +1,3 @@
-
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,6 +8,7 @@ import { HeaderModule } from './header/header.module';
 import { HomeComponent } from './home/home.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ListsComponent } from './lists/lists.component';
+import { SharedModule } from './_modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { ListsComponent } from './lists/lists.component';
     HttpClientModule,
     BrowserAnimationsModule,
     HeaderModule,
-    AuthenticationModule
+    AuthenticationModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
