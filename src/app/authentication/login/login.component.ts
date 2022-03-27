@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
               private toastr:ToastrService) { } 
 
   ngOnInit(): void {
-    console.log('currentUserr', this.authService.currentUser$)
+    //console.log('currentUserr', this.authService.currentUser$)
     //console.log('route..', this.router)
   }
 
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
        },
        error: (e)=>{
          //console.log(e)
-         this.toastr.error(e.error)
+         //this.toastr.error(e.error)
        }
     })
   }
