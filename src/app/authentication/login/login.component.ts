@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
               private toastr:ToastrService) { } 
 
   ngOnInit(): void {
-    console.log('currentUserr', this.authService.currentUser$)
+    //console.log('currentUserr', this.authService.currentUser$)
     //console.log('route..', this.router)
   }
 
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
        },
        error: (e)=>{
          //console.log(e)
-         this.toastr.error(e.error)
+         //this.toastr.error(e.error)
        }
     })
   }

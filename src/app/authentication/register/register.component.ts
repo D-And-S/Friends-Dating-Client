@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+
 
 
 @Component({
@@ -27,7 +28,7 @@ export class RegisterComponent implements OnInit {
        this.cancel();
       },
       error:(e)=>{
-        this.toastr.error(e.error)
+        //this.toastr.error(e.error)
       }
     })
   }
