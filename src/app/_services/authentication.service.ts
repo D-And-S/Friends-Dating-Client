@@ -2,15 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from '../_models/user.model';
+import { environment } from 'src/environments/environment';
+import { User } from '../_models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthenticationService {
-  baseUrl = "https://localhost:44351/api/";
-
   //store the last emited value
   private curentUserSource = new ReplaySubject<User | null>(1)
   // the reason behind to define this as Observable so that we can share replySubect to other component
@@ -20,30 +19,29 @@ export class AuthenticationService {
 
   login(model: any) {
     //rxjs pipe use for to define operator
-    return this.http.post(this.baseUrl + 'account/login', model).pipe(
+    return this.http.post(environment.apiUrl + 'account/login', model).pipe(
       // like array map, take a function, in here recieve http response
       // in map function we can get back specific data
-      map((response:any) => {
-        const user = response;        
+      map((response: any) => {
+        const user = response;
         // if user not null
-        if(user){
+        if (user) {
           localStorage.setItem('user', JSON.stringify(user))
-          
           this.curentUserSource.next(user)
           //console.log('hello', this.curentUserSource)
         }
-      })  
+      })
     )
   }
 
-  setCurrentUser(user:User){
+  setCurrentUser(user: User) {
     this.curentUserSource.next(user);
   }
 
-  register(model:any){
-    return this.http.post(this.baseUrl+'account/register',model).pipe(
-      map((user:any)=>{
-        if(user){
+  register(model: any) {
+    return this.http.post(environment.apiUrl + 'account/register', model).pipe(
+      map((user: any) => {
+        if (user) {
           localStorage.setItem('user', JSON.stringify(user))
           this.curentUserSource.next(user)
         }
@@ -52,9 +50,9 @@ export class AuthenticationService {
     );
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('user');
-    this.curentUserSource.next(null) 
+    this.curentUserSource.next(null)
   }
 
 }

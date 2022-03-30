@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/authentication/authentication.service';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+
 
 @Component({
   selector: 'app-top-navbar',

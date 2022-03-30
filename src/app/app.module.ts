@@ -13,6 +13,7 @@ import { TestErrorsComponent } from './_errors/test-errors/test-errors.component
 import { ErrorInterceptor } from './_interceptors/interceptor.interceptor';
 import { NotFoundComponent } from './error-page/not-found/not-found.component';
 import { ServerErrorComponent } from './error-page/server-error/server-error.component';
+import { MembersModule } from './members/members.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ServerErrorComponent } from './error-page/server-error/server-error.com
     BrowserAnimationsModule,
     HeaderModule,
     AuthenticationModule,
-    SharedModule
+    SharedModule,
+    MembersModule
   ],
   providers: [
     // we use multi for not replace default angular interceptor
