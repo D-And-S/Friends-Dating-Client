@@ -10,6 +10,7 @@ import { MessageComponent } from './messages/message/message.component';
 import { TestErrorsComponent } from './_errors/test-errors/test-errors.component';
 import { AuthGuard } from './_guards/auth.guard';
 
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   //make authGuard to all nav
@@ -19,7 +20,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'members', component: MemberListComponent },
-      { path: 'members/:id', component: MemberDetailsComponent },
+      { path: 'members/:username', component: MemberDetailsComponent },
       { path: 'lists', component: ListsComponent },
       { path: 'messages', component: MessageComponent },
     ]
