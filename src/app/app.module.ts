@@ -8,12 +8,12 @@ import { HeaderModule } from './header/header.module';
 import { HomeComponent } from './home/home.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ListsComponent } from './lists/lists.component';
-import { SharedModule } from './_modules/shared/shared.module';
 import { TestErrorsComponent } from './_errors/test-errors/test-errors.component';
-import { ErrorInterceptor } from './_interceptors/interceptor.interceptor';
+import { ErrorInterceptor } from './_interceptors/Error.interceptor';
 import { NotFoundComponent } from './error-page/not-found/not-found.component';
 import { ServerErrorComponent } from './error-page/server-error/server-error.component';
 import { MembersModule } from './members/members.module';
+import { TokenInterceptor } from './_interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,12 +31,13 @@ import { MembersModule } from './members/members.module';
     BrowserAnimationsModule,
     HeaderModule,
     AuthenticationModule,
-    SharedModule,
-    MembersModule
+    MembersModule,
   ],
   providers: [
     // we use multi for not replace default angular interceptor
-    {provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi:true}
+    {provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi:true},
+    {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true}
+
   ],
   bootstrap: [AppComponent]
 })

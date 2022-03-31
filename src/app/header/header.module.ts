@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 import { AuthenticationModule } from '../authentication/authentication.module';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { AppRoutingModule } from '../app-routing.module';
+import { SharedModule } from '../_modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -12,8 +12,8 @@ import { AppRoutingModule } from '../app-routing.module';
   imports: [
     CommonModule,
     AuthenticationModule,
-    BsDropdownModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
   ],
   exports: [
     TopNavbarComponent,
