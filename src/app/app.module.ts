@@ -14,6 +14,8 @@ import { NotFoundComponent } from './error-page/not-found/not-found.component';
 import { ServerErrorComponent } from './error-page/server-error/server-error.component';
 import { MembersModule } from './members/members.module';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,12 +34,13 @@ import { TokenInterceptor } from './_interceptors/token.interceptor';
     HeaderModule,
     AuthenticationModule,
     MembersModule,
+    NgxSpinnerModule
   ],
   providers: [
     // we use multi for not replace default angular interceptor
     {provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi:true},
-    {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true}
-
+    {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true},
+    {provide:HTTP_INTERCEPTORS, useClass:LoadingInterceptor, multi:true}
   ],
   bootstrap: [AppComponent]
 })
