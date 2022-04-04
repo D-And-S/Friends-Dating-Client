@@ -5,23 +5,29 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
 import { MemberCardComponent } from './member-card/member-card.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../_modules/shared/shared.module';
+import { MemberEditComponent } from './member-edit/member-edit.component';
+import { FormsModule } from '@angular/forms';
+import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 
 
 @NgModule({
   declarations: [
     MemberListComponent,
     MemberDetailsComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   exports: [
     MemberListComponent,
     MemberDetailsComponent,
-
+    MemberEditComponent
   ]
 })
 export class MembersModule { }
