@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../_modules/shared/shared.module';
 import { MemberEditComponent } from './member-edit/member-edit.component';
 import { FormsModule } from '@angular/forms';
+import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     MemberListComponent,
     MemberDetailsComponent,
     MemberCardComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     CommonModule,

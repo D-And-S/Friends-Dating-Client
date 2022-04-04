@@ -28,11 +28,9 @@ export class MemberService {
     return this.http.get<Member[]>(environment.apiUrl + 'users').pipe(
       map(members=>{
         this.members = members
-        
         return members;
       })
-    )
-    
+    ) 
   }
 
   getMember(username: string) { 
@@ -52,5 +50,6 @@ export class MemberService {
       })
     )
   }
+
 
 }
