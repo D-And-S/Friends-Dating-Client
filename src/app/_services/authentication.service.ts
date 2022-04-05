@@ -26,15 +26,14 @@ export class AuthenticationService {
         const user = response;
         // if user not null
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user))
-          this.curentUserSource.next(user)
-          //console.log('hello', this.curentUserSource)
+          this.setCurrentUser(user)
         }
       })
     )
   }
 
   setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user))
     this.curentUserSource.next(user);
   }
 
@@ -42,8 +41,7 @@ export class AuthenticationService {
     return this.http.post(environment.apiUrl + 'account/register', model).pipe(
       map((user: any) => {
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user))
-          this.curentUserSource.next(user)
+          this.setCurrentUser(user)
         }
         //return user;
       })

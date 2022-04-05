@@ -1,5 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FileUploader } from 'ng2-file-upload';
+import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
+import { Photo } from 'src/app/_models/photo';
+import { User } from 'src/app/_models/user';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { MemberService } from 'src/app/_services/member.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-photo-editor',
@@ -7,13 +16,80 @@ import { Member } from 'src/app/_models/member';
   styleUrls: ['./photo-editor.component.css']
 })
 export class PhotoEditorComponent implements OnInit {
-
   @Input() member!: Member
-  
-  constructor() { }
+
+  uploader!: FileUploader;
+  hasBaseDropZoneOver = false;
+  user!: User | null | any;
+
+  constructor(private accountService: AuthenticationService,
+              private memberService:MemberService,
+              private toastr:ToastrService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user)
+  }
 
   ngOnInit(): void {
+    this.initializeUploader();
+  }
+  
+  fileOverBase(e: any){
+    this.hasBaseDropZoneOver = e;
+  }
 
+  initializeUploader() {
+    this.uploader = new FileUploader({
+      url: environment.apiUrl + 'users/Add-Photo',
+      authToken: 'Bearer ' + this.user?.token,
+      isHTML5: true,
+      allowedFileType: ['image'],
+      removeAfterUpload: true,
+      autoUpload: false,
+      maxFileSize: 10 * 1024 * 1024
+    });
+
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+    }
+
+    this.uploader.onSuccessItem = (item, response, status, headers) => {
+      if (response) {
+        const photo = JSON.parse(response);
+        this.member.photos.push(photo)
+      }
+    }
+  }
+
+  setMainPhoto(photo:Photo){
+    this.memberService.setMainPhoto(photo.id).subscribe({
+      next: (data)=> {
+        // we change the current photo url 
+        this.user.photoUrl = photo.url;
+
+        // set new user data in local storage
+        this.accountService.setCurrentUser(this.user);
+
+        //change the already set photo 
+        this.member.photoUrl = photo.url
+
+        //we have photo details in our member array we have to chagne data too
+        this.member.photos.forEach(p=> {
+          if(p.isMain) p.isMain = false;
+          if(p.id === photo.id) p.isMain = true;
+        })
+
+        //this.toastr.success("Main Photo Has Been Set")
+      }
+    })
+  }
+
+  deletePhoto(photoId:number){
+      this.memberService.deletePhoto(photoId).subscribe({
+        next: (photo) => {
+          //this will return new array without current photoID
+          this.member.photos = this.member.photos.filter(x=>x.id !== photoId)
+        }
+      })
   }
 
 }
+

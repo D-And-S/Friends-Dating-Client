@@ -43,6 +43,7 @@
                     </a>
                 </li>
 
+
             </ul>
 
             <app-login></app-login>
@@ -52,11 +53,15 @@
                 dropdown
                 *ngIf="(authService.currentUser$ | async) as user"
             >
+                <img
+                    src="{{user.photoUrl}}"
+                    alt="{{user.username}}"
+                >
                 <button
                     id="button-basic"
                     dropdownToggle
                     type="button"
-                    class="btn btn-primary dropdown-toggle"
+                    class="btn btn-primary dropdown-toggle text-light ml-2"
                     aria-controls="dropdown-basic"
                 >
                     Welcome {{user.username | titlecase}}
@@ -70,7 +75,12 @@
                     aria-labelledby="button-basic"
                 >
                     <li role="menuitem">
-                        <a class="dropdown-item" routerLink="member/edit">Edit Profile</a>
+                        <a
+                            class="dropdown-item"
+                            routerLink="member/edit"
+                        >
+                            Edit Profile
+                        </a>
                     </li>
                     <li role="menuitem">
                         <a
