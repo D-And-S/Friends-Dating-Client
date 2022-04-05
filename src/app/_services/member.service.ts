@@ -20,36 +20,43 @@ export class MemberService {
 
   constructor(private http: HttpClient) { }
 
-  getMembers() {   
-    if(this.members.length > 0){
+  getMembers() {
+    if (this.members.length > 0) {
       //console.log(this.members)
-      return of(this.members); 
-    } 
+      return of(this.members);
+    }
     return this.http.get<Member[]>(environment.apiUrl + 'users').pipe(
-      map(members=>{
+      map(members => {
         this.members = members
         return members;
       })
-    ) 
+    )
   }
 
-  getMember(username: string) { 
-    const member = this.members.find(x=>x.userName === username);
-    if(member !== undefined){
+  getMember(username: string) {
+    const member = this.members.find(x => x.userName === username);
+    if (member !== undefined) {
       //console.log(member)
       return of(member)
-    } 
-    
+    }
+
     return this.http.get<Member>(environment.apiUrl + 'users/GetUserByUsername/' + username)
   }
 
   updateMember(user: Member) {
     return this.http.put(environment.apiUrl + 'users/UpdateUser', user).pipe(
-      map(()=>{
-       const index = this.members.indexOf(user)           
+      map(() => {
+        const index = this.members.indexOf(user)
       })
     )
   }
 
+  setMainPhoto(photoId: number) {
+    return this.http.put(environment.apiUrl + 'users/set-main-photo/' + photoId, {})
+  }
+
+  deletePhoto(PhotoId:number){
+    return this.http.delete(environment.apiUrl+'Users/delete-photo/'+PhotoId)
+  }
 
 }

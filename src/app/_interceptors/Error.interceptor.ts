@@ -37,7 +37,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 
               }else {
                 // for general 400 error 
-                 this.toastr.error("Bad Request", error.status)
+                //console.log(error);
+                 this.toastr.error(error.error, error.status)               
               }
               break;
 
