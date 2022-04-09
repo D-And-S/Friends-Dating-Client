@@ -22,12 +22,12 @@ import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
     CommonModule,
     RouterModule,
     SharedModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     MemberListComponent,
     MemberDetailsComponent,
-    MemberEditComponent
+    MemberEditComponent,
   ]
 })
 export class MembersModule { }
