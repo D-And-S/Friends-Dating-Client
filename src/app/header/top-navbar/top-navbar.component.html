@@ -54,7 +54,7 @@
                 *ngIf="(authService.currentUser$ | async) as user"
             >
                 <img
-                    src="{{user.photoUrl}}"
+                    src="{{user.photoUrl || '../assets/user.png'}}"
                     alt="{{user.username}}"
                 >
                 <button
