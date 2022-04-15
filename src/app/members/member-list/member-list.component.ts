@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Observable, take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
+import { Pagination } from 'src/app/_models/pagination';
+import { User } from 'src/app/_models/user';
+import { UserParams } from 'src/app/_models/userParams';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { MemberService } from 'src/app/_services/member.service';
 
 @Component({
@@ -10,21 +15,66 @@ import { MemberService } from 'src/app/_services/member.service';
 })
 export class MemberListComponent implements OnInit {
 
-  members$!:Observable<Member[]>;
+  // since we return data with pagination that's why 
+  members!: Member[];
+  pagination: Pagination | any;
+  userParams!: UserParams
+  user: User | any;
 
-  constructor(private memberService:MemberService) { }
+  genderList = [
+    { value: "male" },
+    { value: "female" },
+  ]
+
+  //members$!:Observable<Member[]>;
+  constructor(private memberService: MemberService,
+    private route: ActivatedRoute,
+    private router: Router) {
+
+    this.userParams = this.memberService.getUserParams();
+    //console.log('get', this.userParams)
+  }
 
   ngOnInit(): void {
-     this.members$ = this.memberService.getMembers()
+    // this.members$ = this.memberService.getMembers()
+    this.route.paramMap.subscribe({
+      next: (params: any) => {
+        var pageNo = +params.get('pageNo');
+        // console.log(typeof pageNo)
+        // console.log(pageNo)
+        if (pageNo == null || pageNo <= 0 || isNaN(pageNo)) {
+          this.userParams.pageNumber = 1;
+        } else {
+          this.userParams.pageNumber = params.get('pageNo')
+        }
+      }
+    })
+    this.loadMembers();
   }
+
+  loadMembers() {
+    this.memberService.setUserParams(this.userParams)
+    this.memberService.getMembers(this.userParams).subscribe({
+      next: (response) => {
+        //console.log('members',response)
+        this.members = response.result;
+        this.pagination = response.pagination;
+      },
+    })
   
-  // loadMembers(){
-  //   this.memberService.getMembers().subscribe({
-  //     next:(member)=> {
-  //       //console.log('members',member)
-  //       this.members = member;
-  //     },
-  //   })
-  // }
+  }
+
+  resetFilters() {
+    
+    this.userParams = this.memberService.resetUserParams()
+    this.loadMembers()
+  }
+
+  pageChanged(event: any) {
+    this.userParams.pageNumber = event.page;
+    this.router.navigateByUrl("members/" + this.userParams.pageNumber)
+    this.memberService.setUserParams(this.userParams)
+    this.loadMembers();
+  }
 
 }
