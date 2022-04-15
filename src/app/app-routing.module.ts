@@ -22,7 +22,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'members', component: MemberListComponent },
-      { path: 'members/:username', component: MemberDetailsComponent },
+      { path: 'members/:pageNo', component: MemberListComponent },
+      { path: 'member/:username', component: MemberDetailsComponent },
       { path: 'member/edit', component:MemberEditComponent, canDeactivate:[PreventUnsavedChangesGuard]},
       { path: 'lists', component: ListsComponent },
       { path: 'messages', component: MessageComponent },
