@@ -11,7 +11,7 @@ import { MemberService } from 'src/app/_services/member.service';
   styleUrls: ['./member-details.component.css']
 })
 export class MemberDetailsComponent implements OnInit {
-  member!: Member;
+  member: Member | any;
   galleryOptions!: NgxGalleryOptions[];
   galleryImages!: NgxGalleryImage[];
 
@@ -70,7 +70,9 @@ export class MemberDetailsComponent implements OnInit {
     this.memberService.getMember(this.route.snapshot.params['username']).subscribe({
       next: (member) => {
         this.member = member
-        this.galleryImages = this.getImages()
+
+        console.log(this.member)
+        //this.galleryImages = this.getImages()
       }
     })
   }

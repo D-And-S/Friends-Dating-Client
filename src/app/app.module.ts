@@ -16,7 +16,7 @@ import { MembersModule } from './members/members.module';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './_modules/shared/shared.module';
 
 @NgModule({
@@ -38,7 +38,8 @@ import { SharedModule } from './_modules/shared/shared.module';
     ReactiveFormsModule,
     MembersModule,
     NgxSpinnerModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
   ],
   providers: [
     // we use multi for not replace default angular interceptor

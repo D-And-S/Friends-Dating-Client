@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
@@ -18,7 +18,7 @@ export class MemberListComponent implements OnInit {
   // since we return data with pagination that's why 
   members!: Member[];
   pagination: Pagination | any;
-  userParams!: UserParams
+  userParams: UserParams | any
   user: User | any;
 
   genderList = [
@@ -36,7 +36,6 @@ export class MemberListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.members$ = this.memberService.getMembers()
     this.route.paramMap.subscribe({
       next: (params: any) => {
         var pageNo = +params.get('pageNo');
@@ -52,20 +51,19 @@ export class MemberListComponent implements OnInit {
     this.loadMembers();
   }
 
+
   loadMembers() {
-    this.memberService.setUserParams(this.userParams)
+    //this.memberService.setUserParams(this.userParams)
     this.memberService.getMembers(this.userParams).subscribe({
       next: (response) => {
         //console.log('members',response)
-        this.members = response.result;
         this.pagination = response.pagination;
+        this.members = response.result;
       },
     })
-  
   }
 
-  resetFilters() {
-    
+  resetFilters() { 
     this.userParams = this.memberService.resetUserParams()
     this.loadMembers()
   }
