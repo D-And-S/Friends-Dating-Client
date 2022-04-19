@@ -20,7 +20,7 @@ export class PhotoEditorComponent implements OnInit {
 
   uploader!: FileUploader;
   hasBaseDropZoneOver = false;
-  user!: User | null | any;
+  user!: User | any;
 
   constructor(private accountService: AuthenticationService,
     private memberService: MemberService,
