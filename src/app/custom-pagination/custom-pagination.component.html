@@ -3,6 +3,7 @@
         [boundaryLinks]="true"
         [totalItems]="pagination.totalItems"
         [itemsPerPage]="pagination.itemPerPage"
+        [(ngModel)]="currentPage"
         (pageChanged)="pageChanged($event)"
         previousText="&lsaquo;"
         nextText="&rsaquo;"
@@ -11,4 +12,5 @@
         [maxSize]="10"
     >
     </pagination>
+    
 </div>

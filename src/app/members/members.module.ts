@@ -8,7 +8,8 @@ import { SharedModule } from '../_modules/shared/shared.module';
 import { MemberEditComponent } from './member-edit/member-edit.component';
 import { FormsModule } from '@angular/forms';
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
-import { PaginationComponent } from '../pagination/pagination.component';
+import { MessagesModule } from '../messages/messages.module';
+
 
 @NgModule({
   declarations: [
@@ -17,20 +18,19 @@ import { PaginationComponent } from '../pagination/pagination.component';
     MemberCardComponent,
     MemberEditComponent,
     PhotoEditorComponent,
-    PaginationComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     SharedModule,
     FormsModule,
+    MessagesModule
   ],
   exports: [
     MemberListComponent,
     MemberDetailsComponent,
     MemberEditComponent,
     MemberCardComponent,
-    PaginationComponent
   ]
 })
 export class MembersModule { }

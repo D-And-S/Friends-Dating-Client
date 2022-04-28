@@ -9,9 +9,13 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
+import { CustomPaginationComponent } from 'src/app/custom-pagination/custom-pagination.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CustomPaginationComponent
+  ],
   imports: [
     CommonModule,
     BsDropdownModule,
@@ -20,11 +24,13 @@ import { TimeagoModule } from 'ngx-timeago';
     FileUploadModule,
     BsDatepickerModule,
     PaginationModule,
+    ReactiveFormsModule,
     ButtonsModule.forRoot(),
     TimeagoModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
+    FormsModule
   ],
   exports: [
     ToastrModule,
@@ -35,7 +41,10 @@ import { TimeagoModule } from 'ngx-timeago';
     BsDatepickerModule,
     PaginationModule,
     ButtonsModule,
-    TimeagoModule
+    TimeagoModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CustomPaginationComponent
   ]
 })
 

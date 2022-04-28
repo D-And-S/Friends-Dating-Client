@@ -41,7 +41,7 @@ export class MemberListComponent implements OnInit {
         var pageNo = +params.get('pageNo');
         // console.log(typeof pageNo)
         // console.log(pageNo)
-        if (pageNo == null || pageNo <= 0 || isNaN(pageNo)) {
+        if (pageNo == null || pageNo == 0 || isNaN(pageNo)) {
           this.userParams.pageNumber = 1;
         } else {
           this.userParams.pageNumber = params.get('pageNo')
@@ -74,5 +74,7 @@ export class MemberListComponent implements OnInit {
     this.memberService.setUserParams(this.userParams)
     this.loadMembers();
   }
+
+  
 
 }

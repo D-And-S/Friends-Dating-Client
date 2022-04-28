@@ -16,8 +16,8 @@ import { MembersModule } from './members/members.module';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './_modules/shared/shared.module';
+import { MessagesModule } from './messages/messages.module';
 
 @NgModule({
   declarations: [
@@ -35,17 +35,19 @@ import { SharedModule } from './_modules/shared/shared.module';
     BrowserAnimationsModule,
     HeaderModule,
     AuthenticationModule,
-    ReactiveFormsModule,
+    MessagesModule,
     MembersModule,
     NgxSpinnerModule,
     SharedModule,
-    FormsModule,
+  ],
+  exports: [
+
   ],
   providers: [
     // we use multi for not replace default angular interceptor
-    {provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi:true},
-    {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true},
-    {provide:HTTP_INTERCEPTORS, useClass:LoadingInterceptor, multi:true}
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

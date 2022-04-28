@@ -5,6 +5,7 @@
 </div>
 
 
+
 <div class="container mt-3">
     <div class="row">
         <div
@@ -19,6 +20,7 @@
             >
                 Members I like
             </button>
+
 
 
             <button
@@ -41,13 +43,10 @@
     </div>
 </div>
 
-
-<app-pagination 
+<app-custom-pagination
     *ngIf="pagination"
     [pagination]="pagination"
+    [currentPage]="pagination.currentPage"
     (updatePageNumber)="pageChanged($event)"
 >
-</app-pagination>
-
-
-
+</app-custom-pagination>
