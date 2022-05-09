@@ -10,6 +10,8 @@ import { AuthenticationService } from '../_services/authentication.service';
 })
 export class AuthGuard implements CanActivate {
 
+  // this guard will check- when user access particualr route, it will check wehater 
+  // user log in or not 
   constructor(private authService: AuthenticationService, private toastr: ToastrService) { }
 
   canActivate(): Observable<boolean> | boolean {

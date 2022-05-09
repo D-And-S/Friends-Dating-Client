@@ -20,7 +20,7 @@ export class AuthenticationService {
   login(model: any) {
     //rxjs pipe use for to define operator
     return this.http.post(environment.apiUrl + 'account/login', model).pipe(
-      // like array map, take a function, in here recieve http response
+      // like array map, take a function, in here recieve http response (each data emitted by sorce observable)
       // in map function we can get back specific data
       map((response: any) => {
         const user = response;
@@ -33,8 +33,20 @@ export class AuthenticationService {
   }
 
   setCurrentUser(user: User) {
-    localStorage.setItem('user', JSON.stringify(user))
-    this.curentUserSource.next(user);
+    if (user) {
+      user.roles = [];
+      // we use role at the end because jwt token has specific key with name role
+      const userRoles = this.getDecodedToken(user.token).role;
+
+      //now if user has one role than jwt token will not provide us array, if it is multiple 
+      //role then jwt token will provide an array
+      Array.isArray(userRoles) ? user.roles = userRoles : user.roles.push(userRoles);
+
+      localStorage.setItem('user', JSON.stringify(user))
+      this.curentUserSource.next(user);
+
+
+    }
   }
 
   register(model: any) {
@@ -51,6 +63,18 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('user');
     this.curentUserSource.next(null)
+
+    //console.log(this.curentUserSource);
+  }
+
+
+  getDecodedToken(token: string) {
+
+    //atob allow us to decode the information inside the token
+    //tokens come 3 part we have header payload and other information
+    // we need paylod 
+    return JSON.parse(atob(token.split('.')[1]))
+
   }
 
 }

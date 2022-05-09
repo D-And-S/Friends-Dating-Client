@@ -11,10 +11,13 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
 import { CustomPaginationComponent } from 'src/app/custom-pagination/custom-pagination.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HasRoleDirective } from 'src/app/_directives/has-role.directive';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
-    CustomPaginationComponent
+    CustomPaginationComponent,
+    HasRoleDirective
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
-    FormsModule
+    FormsModule,
+    ModalModule.forRoot()
+    
   ],
   exports: [
     ToastrModule,
@@ -44,7 +49,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TimeagoModule,
     FormsModule,
     ReactiveFormsModule,
-    CustomPaginationComponent
+    CustomPaginationComponent,
+    HasRoleDirective,
+    ModalModule
   ]
 })
 
