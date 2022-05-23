@@ -12,6 +12,13 @@ import { MemberService } from '../_services/member.service';
   providedIn: 'root'
 })
 
+/*
+  the default behaviour of angular is to load template first and then load 
+
+  that's why load data show undefined
+
+  by using route resolver we can load data first then template which will solve the undefined problem
+*/ 
 export class MemberDetailsResolver implements Resolve<Member> {
 
   constructor(private memberService: MemberService) { }

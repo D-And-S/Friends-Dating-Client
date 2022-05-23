@@ -34,3 +34,12 @@
 .animate {
     transition: all 0.4s ease-in-out; 
 }
+
+@keyframes fa-user {
+    0% {opacity: 1;}
+    100% {opacity: 0.4;}
+}
+
+.is-online {
+    color: rgb(1, 189, 42);
+}
