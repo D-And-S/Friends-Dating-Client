@@ -9,6 +9,9 @@
                 class="card-img-top img-thumbnail"
             >
             <div class="card-body">
+                <div class="mb-2" *ngIf="(presence.onlineUser$ | async)?.includes(member.userName)">
+                    <i class="fa fa-user-circle text-success"></i> Online 
+                </div>
                 <div>
                     <strong>Location:</strong>
                     <p>{{member.city}}, {{member.country}}</p>
@@ -81,7 +84,12 @@
                 heading="Messages"
                 (selectTab)="onTabActivated($event)"
             >
-                <app-member-message [username]="member.userName" [messages]="messages"></app-member-message>
+            <!--
+                <app-member-message [username]="member.userName" [messages]="messages"></app-member-message>     
+                since we use signal r we do not need to bind like this
+                because we access message directly from message service
+             -->
+                <app-member-message [username]="member.userName"></app-member-message>
             </tab>
         </tabset>
     </div>

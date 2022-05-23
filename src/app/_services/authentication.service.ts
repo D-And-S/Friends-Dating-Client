@@ -4,6 +4,7 @@ import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
+import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthenticationService {
   // the reason behind to define this as Observable so that we can share replySubect to other component
   currentUser$ = this.curentUserSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private presence:PresenceService) { }
 
   login(model: any) {
     //rxjs pipe use for to define operator
@@ -27,6 +28,7 @@ export class AuthenticationService {
         // if user not null
         if (user) {
           this.setCurrentUser(user)
+          this.presence.createHubConnection(user);
         }
       })
     )
@@ -54,6 +56,7 @@ export class AuthenticationService {
       map((user: any) => {
         if (user) {
           this.setCurrentUser(user)
+          this.presence.createHubConnection(user)
         }
         //return user;
       })
@@ -63,7 +66,7 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('user');
     this.curentUserSource.next(null)
-
+    this.presence.stopHubConnection();
     //console.log(this.curentUserSource);
   }
 
