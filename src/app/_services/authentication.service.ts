@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 import { PresenceService } from './presence.service';
@@ -46,8 +46,6 @@ export class AuthenticationService {
 
       localStorage.setItem('user', JSON.stringify(user))
       this.curentUserSource.next(user);
-
-
     }
   }
 

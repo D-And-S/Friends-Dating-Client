@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.model).subscribe({
        next: (v) => {
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/members')
        },
        error: (e)=>{
          //console.log(e)

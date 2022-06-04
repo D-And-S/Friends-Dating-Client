@@ -18,7 +18,7 @@ import { environment } from 'src/environments/environment';
 export class PhotoEditorComponent implements OnInit {
   @Input() member!: Member
 
-  uploader!: FileUploader;
+  uploader: FileUploader | any ;
   hasBaseDropZoneOver = false;
   user!: User | any;
 
@@ -47,11 +47,31 @@ export class PhotoEditorComponent implements OnInit {
       maxFileSize: 10 * 1024 * 1024
     });
 
-    this.uploader.onAfterAddingFile = (file) => {
+
+    this.uploader.onWhenAddingFileFailed = (item:any, filter:any) => {
+      var fileSplit = item.name.split(/\.(?=[^\.]+$)/)
+      var fileExt = fileSplit[1].toLowerCase()
+      //console.log(fileExt)
+
+      if(fileExt !== 'jpg' && fileExt !== 'png'){
+        this.toastr.error("Please Upload Valid File !!!")
+         return;
+      }
+      
+      if(item.size > 10485760){
+        this.toastr.error("File Is Too Large !!!")
+        return;
+      }
+      
+    } 
+  
+    this.uploader.onAfterAddingFile = (file:any) => {
       file.withCredentials = false;
+      console.log(this.uploader.options.maxFileSize)
     }
 
-    this.uploader.onSuccessItem = (item, response, status, headers) => {
+
+    this.uploader.onSuccessItem = (item :any, response:any, status:any, headers:any) => {
       if (response) {
         const photo = JSON.parse(response);
         this.member.photos.push(photo)

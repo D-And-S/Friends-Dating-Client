@@ -18,7 +18,7 @@ export class LoadingInterceptor implements HttpInterceptor {
     this.busyService.busy()
     return next.handle(request).pipe(
       //when request send back we will delay
-      delay(1000),
+      //delay(1000),
 
        // then we will make our lading idle means hide the loading 
        finalize(() => {
