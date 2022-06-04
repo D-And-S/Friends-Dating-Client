@@ -29,13 +29,16 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    if (this.model.UserName == undefined) {
-      this.toastr.error("Please enter your username")
+    var username = this.model.UserName == undefined ? '' : this.model.UserName.trim()
+    var password = this.model.Password == undefined ? '' : this.model.Password.trim()
+
+    if (username == "") {
+      this.toastr.error("Please enter valid username")
       return
     }
 
-    if (this.model.Password == undefined) {
-      this.toastr.error("Please enter your Password")
+    if (password == "") {
+      this.toastr.error("Please enter valid Password")
       return
     }
 

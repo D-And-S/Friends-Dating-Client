@@ -24,6 +24,7 @@ export class AuthenticationService {
       // like array map, take a function, in here recieve http response (each data emitted by sorce observable)
       // in map function we can get back specific data
       map((response: any) => {
+        console.log(response)
         const user = response;
         // if user not null
         if (user) {
