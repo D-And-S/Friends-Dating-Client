@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
@@ -16,6 +16,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./photo-editor.component.css']
 })
 export class PhotoEditorComponent implements OnInit {
+  @ViewChild('fileInput', {static: false})
+  myFileInput!: ElementRef;
+
   @Input() member!: Member
 
   uploader: FileUploader | any ;
@@ -51,23 +54,25 @@ export class PhotoEditorComponent implements OnInit {
     this.uploader.onWhenAddingFileFailed = (item:any, filter:any) => {
       var fileSplit = item.name.split(/\.(?=[^\.]+$)/)
       var fileExt = fileSplit[1].toLowerCase()
-      //console.log(fileExt)
-
+     
       if(fileExt !== 'jpg' && fileExt !== 'png'){
-        this.toastr.error("Please Upload Valid File !!!")
-         return;
+        this.toastr.error("Please Upload Valid File !!!") 
+        this.resetPhoto()
+        return;
       }
       
       if(item.size > 10485760){
         this.toastr.error("File Is Too Large !!!")
+        this.resetPhoto()
         return;
       }
-      
+   
     } 
+
   
     this.uploader.onAfterAddingFile = (file:any) => {
       file.withCredentials = false;
-      console.log(this.uploader.options.maxFileSize)
+      //console.log("hello")
     }
 
 
@@ -83,6 +88,10 @@ export class PhotoEditorComponent implements OnInit {
         }
       }
     }
+  }
+
+  resetPhoto(){
+    this.myFileInput.nativeElement.value = '';
   }
 
   setMainPhoto(photo: Photo) {
@@ -116,4 +125,6 @@ export class PhotoEditorComponent implements OnInit {
     })
   }
 }
+
+
 
